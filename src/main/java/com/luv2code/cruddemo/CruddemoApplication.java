@@ -24,9 +24,18 @@ public class CruddemoApplication {
     public CommandLineRunner commandLineRunner(AppDAO appDAO){
         return runner -> {
 //            createInstructor(appDAO);
-            findInstructor(appDAO);
+//            findInstructor(appDAO);
 //            deleteInstructor(appDAO);
+            findInstructorDetail(appDAO);
         };
+    }
+
+    private void findInstructorDetail(AppDAO appDAO) {
+        int theId = 1;
+        InstructorDetail detail = appDAO.findInstructorDetailById(theId);
+        System.out.println(detail);
+        System.out.println(detail.getInstructor());
+        System.out.println("Done");
     }
 
     private void deleteInstructor(AppDAO appDAO) {

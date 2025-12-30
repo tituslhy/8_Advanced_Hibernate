@@ -5,7 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name="instructor_detail")
-@ToString
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,8 +21,35 @@ public class InstructorDetail {
     @Column(name="hobby")
     private String hobby;
 
+    /**
+     * Add this if you want a bi-directional one-to-one mapping: i.e.
+     * you can pull the instructor class out if you query for an instructor
+     * detail. Otherwise, it's just a uni-directional one-to-one mapping
+     * where the instructor can pull out an instructor detail class,
+     * but not vice versa
+     *
+     * "instructorDetail" informs Spring Boot on how to use the field to
+     * find the instructor class
+     */
+    @OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)
+    private Instructor instructor;
+
     public InstructorDetail(String youtubeChannel, String hobby) {
         this.youtubeChannel = youtubeChannel;
         this.hobby = hobby;
+    }
+
+    /**
+     * If it's a bi-directional mapping you have to override the toString method to prevent
+     * both classes from calling each other
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "InstructorDetail{" +
+                "id=" + id +
+                ", youtubeChannel='" + youtubeChannel + '\'' +
+                ", hobby='" + hobby + '\'' +
+                '}'; // notice: NO instructor printed here
     }
 }
