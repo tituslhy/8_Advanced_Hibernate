@@ -30,8 +30,20 @@ public class InstructorDetail {
      *
      * "instructorDetail" informs Spring Boot on how to use the field to
      * find the instructor class
+     *
+     * If you only want to delete the instructorDetail but not the instructor,
+     * do not use CascadeType.ALL. Specify every cascade type except REMOVE and
+     * ALL.
      */
-    @OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)
+    @OneToOne(
+            mappedBy = "instructorDetail",
+            cascade = {
+                    CascadeType.MERGE,
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            }
+    )
     private Instructor instructor;
 
     public InstructorDetail(String youtubeChannel, String hobby) {

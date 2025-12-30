@@ -11,4 +11,11 @@ public interface AppDAO {
     InstructorDetail findInstructorDetailById(int theId);
 
     void deleteInstructorById(int theId);
+
+    /**
+     * This method removes both the instructor detail AND the instructor
+     * if cascade type is set to ALL in InstructorDetail
+     * @param theId
+     */
+    void deleteInstructorDetailById(int theId);
 }
